@@ -1,0 +1,13 @@
+poner seleccione en el filtro de enlace de captura
+
+quitar enlace de captura en usuario captura.
+
+ejecutora como captura.
+
+eliminar el campo de servidor publico.
+
+eliminar la parte de adjunto en actividades.
+
+
+crear un modulo para el narrativo
+en donde se debe de validar los proyectos por el coordinador.

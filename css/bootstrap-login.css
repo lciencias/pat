@@ -1,0 +1,13 @@
+.container-login {
+	width: 450px;
+	padding-right: 35px;
+	padding-left: 55px;
+	padding-top: 35px;
+	padding-bottom: 45px;
+	margin-right: auto;
+	margin-left: auto;
+	border: 2px solid #AA2B00;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+}
