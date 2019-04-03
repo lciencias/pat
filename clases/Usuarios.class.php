@@ -1,4 +1,8 @@
 <?php
+/**
+Clase del Objeto Usuario
+**/
+
 class Usuarios  extends Comunes implements InterfazCatalogos{
     var $ddb;
     var $data;
