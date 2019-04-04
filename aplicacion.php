@@ -5,7 +5,7 @@
 <html lang="es">
 <!--<![endif]-->  
 <?php
-$cla = "";
+$aplicacion = $apli_com = $ipp= $page = $cla = "";
 include_once ("include.php");
 include_once ($path_sis."config.php");
 include_once ($path_sis."revisaSesion.php");
@@ -14,7 +14,7 @@ include_once ($path_cla."Mysql.class.php");
 include_once ($path_cla."Menu.class.php");
 include_once ($path_cla."Catalogos.class.php");
 include_once ($path_cla."RevisaParametros.class.php");
-$tmp_menu = $_REQUEST ["aplicacion"] + 0;
+$tmp_menu 	 = $_REQUEST ["aplicacion"] + 0;
 $tmp_submenu = $_REQUEST ["apli_com"] + 0;
 
 $_SESSION ["aplicacion"] = $tmp_menu;
@@ -79,8 +79,10 @@ if($_SESSION["aplicacion"] == 3 && $_SESSION["apli_com"] == 27){
 	$objcat = new Catalogos($db, array('opcion' => 14), $_SESSION, $_SERVER, $path_web);
 	$catPond = $objcat->obtenBuffer();
 }
-if (file_exists($path_sis.$url)) {
+
+if (!empty($path_sis) && !empty($url) && file_exists($path_sis.$url)) {
 	include_once ($path_sis.$url);
+	die("path:  ".$path_sis.$url);
 }
 
 if (trim ( $objPara->obtenTitulo () ) == "")

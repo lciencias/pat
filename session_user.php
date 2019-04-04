@@ -1,6 +1,6 @@
 <?php
 session_start();
-session_cache_limiter("nocache");
+//session_cache_limiter("nocache");
 include_once("include.php");
 include_once($path_cla."Mysql.class.php");
 $db  = new Mysql($_dbhost, $_dbuname, $_dbpass, $_dbname, $persistency = true);

@@ -1,27 +1,23 @@
 <?php
-class Conexion {
+class Mysql {
 	var $db_connect_id;
 	var $query_result;
 	var $row = array();
 	var $rowset = array();
 	var $num_queries = 0;
 
-	//
-	// Constructor
-	//
-	function __construct($sqlserver, $sqluser, $sqlpassword, $database, $persistency = true)
-	{
+	function __construct($sqlserver, $sqluser, $sqlpassword, $database, $persistency = true){
 		$this->persistency = $persistency;
 		$this->user = $sqluser;
 		$this->password = $sqlpassword;
 		$this->server = $sqlserver;
-		$this->dbname = $database;
+        $this->dbname = $database;
+        
 		try{
 			$this->db_connect_id = mysqli_connect($this->server, $this->user, $this->password, $this->dbname);
 			return $this->db_connect_id;
 		}
 		catch(\Exception $e){
-			
 			return false;
 		}
 	}
@@ -47,14 +43,18 @@ class Conexion {
 	function sql_query($query = "", $transaction = FALSE)
 	{
 		// Remove any pre-existing queries
-		unset($this->query_result);
+		$contadorQuery = 0;
+		if($this->query_result){
+			$contadorQuery = $this->query_result;
+		}
+		unset($contadorQuery);
 		if ($query != "") {
 			$this->query_result = @mysqli_query($this->db_connect_id , $query);
 		}
 		if ($this->query_result)
 		{
-			unset($this->row[$this->query_result]);
-			unset($this->rowset[$this->query_result]);
+			//unset($this->row[$this->query_result]);
+			//unset($this->rowset[$this->query_result]);
 			return $this->query_result;
 		}
 		else
@@ -78,9 +78,12 @@ class Conexion {
 		}
 	}
 
-	function sql_affectedrows() {
-		if ($this->db_connect_id) {
-			$result = @mysqli_affected_rows($this->db_connect_id);
+	function sql_affectedrows($query_id = 0) {
+		if (!$query_id) {
+			$query_id = $this->query_result;
+		}
+		if ($query_id) {
+			$result = @mysqli_affected_rows($query_id);
 			return $result;
 		} else {
 			return false;
@@ -112,27 +115,31 @@ class Conexion {
 		}
 	}
 
-	function sql_fetchrow($query_id = 0) {
+	function sql_fetchrow($query_id) {
+		$contadorQuery = 0;
 		if (!$query_id) {
 			$query_id = $this->query_result;
 		}
 		if ($query_id) {
-			$this->row[(int)$query_id] = @mysqli_fetch_array($query_id);
-			return $this->row[(int)$query_id];
+			$contadorQuery = $query_id;
+			$this->row[$contadorQuery] = @mysqli_fetch_array($query_id, MYSQLI_NUM);
+			return $this->row[$contadorQuery];
 		} else {
 			return false;
 		}
 	}
 
-	function sql_fetchrowset($query_id = 0) {
+	function sql_fetchrowset($query_id) {
+		$contadorQuery = 0;
 		if (!$query_id) {
 			$query_id = $this->query_result;
 		}
 		if ($query_id) {
-			unset($this->rowset[$query_id]);
-			unset($this->row[$query_id]);
-			while ($this->rowset[$query_id] = @mysqli_fetch_array($query_id)) {
-				$result[] = $this->rowset[$query_id];
+			$contadorQuery = $query_id;
+			unset($this->rowset[$contadorQuery]);
+			unset($this->row[$contadorQuery]);
+			while ($this->rowset[$contadorQuery] = @mysqli_fetch_array($query_id)) {
+				$result[] = $this->rowset[$contadorQuery];
 			}
 			return $result;
 		} else {

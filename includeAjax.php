@@ -10,9 +10,14 @@ session_cache_limiter("nocache");
 include_once("config.php");
 $title   ="Sistema de Informaci&oacute;n de la Secretaria de Cultura";
 $titleEst = "Estadisticas del Sistema de Informaci&oacute;n de la Secretaria de Cultura";
-$path_web="http://sisec.cultura.df.gob.mx/pat/";
-$path_sis="/var/www/secultura/pat/";
-$path_sys="/var/www/secultura/pat/";
+//$path_web="http://sisec.cultura.df.gob.mx/pat/";
+//$path_sis="/var/www/secultura/pat/";
+//$path_sys="/var/www/secultura/pat/";
+
+$path_web="http://localhost/pat/";
+$path_sis="/xampp/htdocs/pat/";
+$path_sys="/xampp/htdocs/pat/";
+
 $path_sys=$path_sis;
 $path_cla=$path_sis."clases/";
 $path_int=$path_sis."interfaces/";
