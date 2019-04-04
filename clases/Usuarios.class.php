@@ -1,6 +1,9 @@
 <?php
 /**
-Clase del Objeto Usuario
+ * @Author Luis Antonio Hernández Nieto
+ * Sistema: Programa Anual Trabajo PAT
+ * Cliente: Secretaria de Cultura del Distrito Federal
+ * Clase:  Administración de Usuarios
 **/
 
 class Usuarios  extends Comunes implements InterfazCatalogos{
