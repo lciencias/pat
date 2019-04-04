@@ -5,7 +5,7 @@
 <html lang="es">
 <!--<![endif]-->  
 <?php
-$var = "aaa";
+$var = "aaabb";
 $cla = "";
 include_once ("include.php");
 include_once ($path_sis."config.php");
