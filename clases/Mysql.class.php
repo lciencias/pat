@@ -6,7 +6,7 @@ class Mysql {
 	var $rowset = array();
 	var $num_queries = 0;
 
-	function __construct($sqlserver, $sqluser, $sqlpassword, $database, $persistency = true){
+	function __construct($sqlserver, $sqluser, $sqlpassword, $database, $persistency = 3306){
 		$this->persistency = $persistency;
 		$this->user = $sqluser;
 		$this->password = $sqlpassword;
@@ -40,25 +40,28 @@ class Mysql {
 	//
 	// Base query method
 	//
-	function sql_query($query = "", $transaction = FALSE)
-	{
-		// Remove any pre-existing queries
+	function sql_query($query = "", $transaction = FALSE){
 		$contadorQuery = 0;
 		if($this->query_result){
 			$contadorQuery = $this->query_result;
 		}
-		unset($contadorQuery);
+		//unset($contadorQuery);
 		if ($query != "") {
-			$this->query_result = @mysqli_query($this->db_connect_id , $query);
+			try{
+				$this->query_result = @mysqli_query($this->db_connect_id,$query);
+			}
+			catch(Exception $e){
+				die("Error:  ".print_r($e));
+			}
+			
 		}
 		if ($this->query_result)
 		{
-			//unset($this->row[$this->query_result]);
-			//unset($this->rowset[$this->query_result]);
+//			unset($this->row[$contadorQuery]);
+//			unset($this->rowset[$contadorQuery]);
 			return $this->query_result;
 		}
-		else
-		{
+		else{
 			return false;
 		}
 	}
@@ -103,45 +106,65 @@ class Mysql {
 	}
 
 
-	function sql_fetchass($query_id = 0) {
-		if (!$query_id) {
-			$query_id = $this->query_result;
-		}
-		if ($query_id) {
-			$this->row[(int)$query_id] = @mysqli_fetch_array($query_id,MYSQLI_ASSOC);
-			return $this->row[(int)$query_id];
-		} else {
-			return false;
-		}
-	}
-
-	function sql_fetchrow($query_id) {
+	function sql_fetchass($result) {
 		$contadorQuery = 0;
-		if (!$query_id) {
-			$query_id = $this->query_result;
+		if (!$result) {
+			$result = $this->query_result;
 		}
-		if ($query_id) {
-			$contadorQuery = $query_id;
-			$this->row[$contadorQuery] = @mysqli_fetch_array($query_id, MYSQLI_BOTH);
-			return $this->row[$contadorQuery];
-		} else {
-			return false;
-		}
-	}
-
-	function sql_fetchrowset($query_id) {
-		$contadorQuery = 0;
-		if (!$query_id) {
-			$query_id = $this->query_result;
-		}
-		if ($query_id) {
-			$contadorQuery = $query_id;
-			unset($this->rowset[$contadorQuery]);
-			unset($this->row[$contadorQuery]);
-			while ($this->rowset[$contadorQuery] = @mysqli_fetch_array($query_id)) {
-				$result[] = $this->rowset[$contadorQuery];
+		if ($result) {
+			$contadorQuery = $result;
+			try{
+				$this->row = @mysqli_fetch_array($result,MYSQLI_ASSOC);				
+				return $this->row;
 			}
-			return $result;
+			catch(Exception $e){
+				die("Error:  ".print_r($e));
+			}
+		} else {
+			return false;
+		}
+	}
+
+	function sql_fetchrow($result) {
+		$contadorQuery = 0;
+		if (!$result) {
+			$result = $this->query_result;
+		}
+		if ($result) {
+			//$contadorQuery = $result;
+			try{
+				$this->row = @mysqli_fetch_array($result,MYSQLI_NUM);
+				return $this->row;
+			}
+			catch(Exception $e){
+				die("Error:  ".print_r($e));
+			}
+		} 
+		else{
+			return false;
+		}
+	}
+
+	function sql_fetchrowset($result) {
+		$contadorQuery = 0;
+		if (!$result) {
+			$result = $this->query_result;
+		}
+		if ($result) {
+			$contadorQuery = $result;
+			try{
+				unset($this->rowset[$contadorQuery]);
+				unset($this->row[$contadorQuery]);
+				while ($this->rowset[$contadorQuery] = @mysqli_fetch_array($result,MYSQLI_BOTH)) {
+					$result[] = $this->rowset[$contadorQuery];
+					$contadorQuery++;
+				}
+				return $result;	
+			}
+			catch(Exception $e){
+				die("Error en base de datos:  ".$e->getMessage());
+				return false;
+			}
 		} else {
 			return false;
 		}

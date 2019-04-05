@@ -64,10 +64,10 @@ class Logotipo{
 	
 	function consultaLogotipo(){
 		$sql="SELECT logotipo FROM cat_logo limit 1;";
-		$res=$this->db->sql_query($sql) or die();
+		$res=$this->db->sql_query($sql) or die("Error");
 		if($this->db->sql_numrows($res)>0){
-			list($this->logo) = $this->db->sql_fetchrow($res);
-			
+			list($value) = $this->db->sql_fetchrow($res);
+			$this->logo = $value;
 		}
 	}
 	

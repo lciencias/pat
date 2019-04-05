@@ -2108,7 +2108,7 @@ class Comunes {
         $sql = "SELECT * FROM proyectos_acciones as a WHERE a.active='1' " . $filtro . " ORDER BY a.id desc limit " . $this->session['page'] . "," . $this->session['regs'] . ";";
         $res = $this->db->sql_query($sql) or die($this->cadena_error);
         if ($this->db->sql_numrows($res) > 0) {
-            while ($array = $this->db->sql_fetchrow($res)) {
+            while ($array = $this->db->sql_fetchass($res)) {
                 $array['noAcciones'] = $this->regresaNoAcciones($array['id']);
                 $array['nomRol'] = $array_rol[$array['rolId']];
                 $arrayResults[] = $array;
@@ -2250,7 +2250,7 @@ class Comunes {
 		WHERE a.active='1' AND a.estatus_entrega=10 " . $filtro . " ORDER BY a.id desc limit " . $this->session['page'] . "," . $this->session['regs'] . ";";
         $res = $this->db->sql_query($sql) or die($this->cadena_error);
         if ($this->db->sql_numrows($res) > 0) {
-            while ($array = $this->db->sql_fetchrow($res)) {
+            while ($array = $this->db->sql_fetchass($res)) {
                 $array['noAcciones'] = $this->regresaNoAcciones($array['id']);
                 $array['nomRol'] = $array_rol[$array['rolId']];
                 $arrayResults[] = $array;
@@ -2287,7 +2287,7 @@ class Comunes {
     		}
     	}
     }
-    function Genera_Archivo($bufferExcel,$path_sis) {
+    function Genera_ArchivoBiz($bufferExcel,$path_sis) {
 	$this->eliminaTemporales($path_sis);
         $num = rand(1, 100000);
         $archivo = "tmp/file" . $num . ".xls";
@@ -2298,6 +2298,16 @@ class Comunes {
         return $buffer_salida;
     }
 
+    function Genera_Archivo($bufferExcel) {
+            $num = rand(1, 100000);
+            $archivo = "tmp/file" . $num . ".xls";
+            $buffer_salida = '<br><a href="' . $archivo . '" target="_blank" class="btn btn-primary exportar"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;Exportar a Excel</a>';
+            $f1 = fopen($archivo, "w+");
+            fwrite($f1, $bufferExcel);
+            fclose($f1);
+            return $buffer_salida;
+        }
+    
     function regresaAdjuntosActividad($idProyecto, $idActividad) {
         $buf = "";
         if ($idProyecto > 0 && $idActividad > 0) {

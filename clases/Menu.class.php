@@ -8,8 +8,7 @@ class Menu
     var $cadena_error;
 	var $user_id;
 	var $arrayMenus;
-    function __construct($db,$path_web,$user_id)
-    {
+    function __construct($db,$path_web,$user_id){
         $this->db=$db;
         $this->path_web=$path_web;
 		$this->user_id=$user_id;
@@ -59,6 +58,7 @@ class Menu
         $res=$this->db->sql_query($sql,$this->db) or die ($this->cadena_error);
         if($this->db->sql_numrows($res)>0)
         {
+            
             $this->menu.="
 				<div class='navbar-collapse collapse' id='navbar-collapse'>
                     <ul class='nav navbar-nav'>";

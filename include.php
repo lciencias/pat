@@ -2,6 +2,7 @@
 ini_set('display_errors', 'off');
 ini_set('post_max_size', '60M');
 ini_set('upload_max_filesize', '60M');
+header('Content-Type: text/html; charset=iso-8859-1');
 set_time_limit (0);
 date_default_timezone_set("America/Mexico_City");
 $title   ="Sistema de Informaci&oacute;n de la Secretaria de Cultura";
@@ -11,8 +12,8 @@ $titleEst = "Estadisticas del Sistema de Informaci&oacute;n de la Secretaria de 
 //$path_sys="/var/www/secultura/pat/";
 
 $path_web="http://localhost/pat/";
-$path_sis="/xampp/htdocs/pat/";
-$path_sys="/xampp/htdocs/pat/";
+$path_sis="c:/xampp/htdocs/pat/";
+$path_sys="c:/xampp/htdocs/pat/";
 
 $path_sys=$path_sis;
 $path_cla=$path_sis."clases/";

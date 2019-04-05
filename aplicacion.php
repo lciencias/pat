@@ -56,7 +56,6 @@ if($_REQUEST['letra']!=""){
 		$_SESSION["letra"]="";
 	$_SESSION["letra"]= $_REQUEST['letra'];
 }
-
 $db = new Mysql ( $_dbhost, $_dbuname, $_dbpass, $_dbname, $persistency = true );
 $objMenu = new Menu ( $db, $path_web, $_SESSION ['userId'] );
 $menus   = $objMenu->Obten_Menu ();
@@ -65,7 +64,6 @@ $url     = $objPara->obtenUrl ();
 $aviso   = $objPara->obtenAViso();
 if(trim($url) == "estadisticas/index.php"){
 	$urlEst = $path_est_web."index.php";
-//	echo "<script language=Javascript> location.href='".$urlEst."'; </script>";
 	header("Location: ".$urlEst);
 }
 $urlEst  = "";
@@ -79,10 +77,8 @@ if($_SESSION["aplicacion"] == 3 && $_SESSION["apli_com"] == 27){
 	$objcat = new Catalogos($db, array('opcion' => 14), $_SESSION, $_SERVER, $path_web);
 	$catPond = $objcat->obtenBuffer();
 }
-
 if (!empty($path_sis) && !empty($url) && file_exists($path_sis.$url)) {
 	include_once ($path_sis.$url);
-	die("path:  ".$path_sis.$url);
 }
 
 if (trim ( $objPara->obtenTitulo () ) == "")
