@@ -67,6 +67,7 @@ class Logotipo{
 		$res=$this->db->sql_query($sql) or die();
 		if($this->db->sql_numrows($res)>0){
 			list($this->logo) = $this->db->sql_fetchrow($res);
+			
 		}
 	}
 	

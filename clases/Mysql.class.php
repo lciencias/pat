@@ -108,7 +108,7 @@ class Mysql {
 			$query_id = $this->query_result;
 		}
 		if ($query_id) {
-			$this->row[(int)$query_id] = @mysqli_fetch_assoc($query_id);
+			$this->row[(int)$query_id] = @mysqli_fetch_array($query_id,MYSQLI_ASSOC);
 			return $this->row[(int)$query_id];
 		} else {
 			return false;
@@ -122,7 +122,7 @@ class Mysql {
 		}
 		if ($query_id) {
 			$contadorQuery = $query_id;
-			$this->row[$contadorQuery] = @mysqli_fetch_array($query_id, MYSQLI_NUM);
+			$this->row[$contadorQuery] = @mysqli_fetch_array($query_id, MYSQLI_BOTH);
 			return $this->row[$contadorQuery];
 		} else {
 			return false;
