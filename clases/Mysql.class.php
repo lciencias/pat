@@ -5,7 +5,6 @@ class Mysql {
 	var $row = array();
 	var $rowset = array();
 	var $num_queries = 0;
-
 	function __construct($sqlserver, $sqluser, $sqlpassword, $database, $persistency = 3306){
 		$this->persistency = $persistency;
 		$this->user = $sqluser;
@@ -21,7 +20,6 @@ class Mysql {
 			return false;
 		}
 	}
-
 	//
 	// Other base methods
 	//
@@ -36,7 +34,6 @@ class Mysql {
 			return false;
 		}
 	}
-
 	//
 	// Base query method
 	//
@@ -65,7 +62,6 @@ class Mysql {
 			return false;
 		}
 	}
-
 	//
 	// Other query methods
 	//
@@ -80,7 +76,6 @@ class Mysql {
 			return false;
 		}
 	}
-
 	function sql_affectedrows($query_id = 0) {
 		if (!$query_id) {
 			$query_id = $this->query_result;
@@ -92,7 +87,6 @@ class Mysql {
 			return false;
 		}
 	}
-
 	function sql_numfields($query_id = 0) {
 		if (!$query_id) {
 			$query_id = $this->query_result;
@@ -104,8 +98,6 @@ class Mysql {
 			return false;
 		}
 	}
-
-
 	function sql_fetchass($result) {
 		$contadorQuery = 0;
 		if (!$result) {
@@ -124,7 +116,6 @@ class Mysql {
 			return false;
 		}
 	}
-
 	function sql_fetchrow($result) {
 		$contadorQuery = 0;
 		if (!$result) {
@@ -144,7 +135,6 @@ class Mysql {
 			return false;
 		}
 	}
-
 	function sql_fetchrowset($result) {
 		$contadorQuery = 0;
 		if (!$result) {
@@ -169,7 +159,6 @@ class Mysql {
 			return false;
 		}
 	}
-
 	function sql_fetchfield($field, $rownum = -1, $query_id = 0) {
 		if (!$query_id) {
 			$query_id = $this->query_result;
@@ -195,7 +184,6 @@ class Mysql {
 			return false;
 		}
 	}
-
 	function sql_rowseek($rownum, $query_id = 0) {
 		if (!$query_id) {
 			$query_id = $this->query_result;
@@ -207,7 +195,6 @@ class Mysql {
 			return false;
 		}
 	}
-
 	function sql_nextid() {
 		if ($this->db_connect_id) {
 			$result = @mysqli_insert_id($this->db_connect_id);
@@ -216,12 +203,10 @@ class Mysql {
 			return false;
 		}
 	}
-
 	function sql_freeresult($query_id = 0) {
 		if (!$query_id) {
 			$query_id = $this->query_result;
 		}
-
 		if ($query_id) {
 			unset($this->row[$query_id]);
 			unset($this->rowset[$query_id]);
@@ -231,7 +216,6 @@ class Mysql {
 			return false;
 		}
 	}
-
 	function sql_error($query_id = 0) {
 		$result["message"] = @mysqli_error($this->db_connect_id);
 		$result["code"] = @mysqli_errno($this->db_connect_id);

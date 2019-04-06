@@ -12,8 +12,8 @@ $titleEst = "Estadisticas del Sistema de Informaci&oacute;n de la Secretaria de 
 //$path_sys="/var/www/secultura/pat/";
 
 $path_web="http://localhost/pat/";
-$path_sis="c:/xampp/htdocs/pat/";
-$path_sys="c:/xampp/htdocs/pat/";
+$path_sis="/opt/lampp/htdocs/pat/";
+$path_sys="/opt/lampp/htdocs/pat/";
 
 $path_sys=$path_sis;
 $path_cla=$path_sis."clases/";
